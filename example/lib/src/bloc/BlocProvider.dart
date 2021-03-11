@@ -6,18 +6,13 @@ class BlocProvider<T extends BlocBase> extends StatefulWidget {
   final Widget child;
   final T bloc;
 
-  static Type _typeOf<T>() => T;
-
-  BlocProvider({this.key, @required this.child, @required this.bloc})
-      : super(key: key);
+  BlocProvider({this.key, @required this.child, @required this.bloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _BlocProviderState();
 
   static T of<T extends BlocBase>(final BuildContext context) {
-    final type = _typeOf<BlocProvider<T>>();
-
-    BlocProvider<T> provider = context.ancestorWidgetOfExactType(type);
+    BlocProvider<T> provider = context.findAncestorWidgetOfExactType<BlocProvider>();
     return provider.bloc;
   }
 }
